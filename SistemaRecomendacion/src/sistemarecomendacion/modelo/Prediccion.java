@@ -14,26 +14,29 @@ import java.util.Date;
  * @author edgarin
  */
 public class Prediccion {
-    Matrix A,B,C,Z,O,I,R,S,Sroot,U,V,Vt,X,SUB,M,N,P,T,SQ,DEF,SOL,Rnorm, NPR;
+    Matrix A,B,C,Z,O,I,R,S,Sroot,U,V,Vt,SUB,M,N,P,T,SQ,DEF,SOL,Rnorm, NPR;
     int dimensionK=1;
     
-    public void generar(double[][] M) {
+    public void generar(double[][] M, double[][] N) {
         Date start_time = new Date();
         
         R = new Matrix(M);
+        NPR = new Matrix(N);
      
         int rd = R.getRowDimension();
         int rc = R.getColumnDimension();
         
         if( R.getRowDimension() < R.getColumnDimension() ){
             R = R.getMatrix(0, (rd-1), 0, (rd-1));
+            NPR = NPR.getMatrix(0, (rd-1), 0, (rd-1));
             System.out.println("m: "+rd+" < "+"n: "+rc+" se redimensiona a m=n="+rd);
         }
         
         // TO DO: econtrar NPR
-        //fill-in matrix that provides naive non-personalized recommendation. 
-        //Rnorm = R.plus(NPR);
-        Rnorm = R;
+        // fill-in matrix that provides naive non-personalized recommendation. 
+        // Rnorm = R+NPR,
+        Rnorm = R.plus(NPR);
+        //Rnorm = R;
         
         // TO DO: como asignar un buen dimensionK
         
@@ -58,10 +61,14 @@ public class Prediccion {
             System.out.println("getColumnDimension: "+U.getColumnDimension());
                         
             // - compute the square-root of the reduced matrix Sk, to obtain Sk 1/2            
-           //Sroot = metodoSimplificadoNewton();
+            Sroot = metodoSimplificadoNewton();
             
             // - compute two resultant matrices: UkSk 1/2 and Sk1/2Vk¢ 
             //SVD.getU().times(SVD.getS().times(SVD.getV().transpose()));
+                    
+            P = U.times(Sroot).times(Sroot.times(V.transpose()));
+            System.out.println("P:");
+            P.print(3, 3);
          
         } catch ( java.lang.RuntimeException e ) {
             System.out.println(e);
@@ -77,8 +84,29 @@ public class Prediccion {
     /** aproxima la matriz Xk a la raíz cuadrada de A tras k iteraciones
      * @return  **/
     public Matrix metodoSimplificadoNewton(){
-        double[][] Xk = new double[S.getColumnDimension()][S.getRowDimension()];
-        return new Matrix(Xk);
+        // X0 = I, la matriz identidad
+        // Xk+1 = 1/2(Xk + AXk ^-1)
+        double Ep = 1e-6;
+        int  delta = 1;
+        int  M = 100;
+        
+        Matrix X0 = Matrix.identity(S.getColumnDimension(),S.getRowDimension());
+        Matrix Xk = new Matrix(S.getColumnDimension(), S.getRowDimension());
+        
+        for (int k = 1; k < M; k++) {
+            
+            Xk =  X0.plus(S.times(X0.inverse())).times(1.0/2.0);
+            /*
+            if( Xk.minus(X0).det() < delta || v < ep)
+                break;
+            */
+            X0 = Xk;
+        }
+        
+        System.out.println("Sroot:");
+        Xk.print(3, 3);
+        
+        return Xk;
     }    
     
     /** Shorten spelling of print. **/

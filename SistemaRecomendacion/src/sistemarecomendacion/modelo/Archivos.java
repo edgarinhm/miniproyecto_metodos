@@ -103,8 +103,15 @@ public class Archivos {
     // metodo que lee el contenido de un archivo
     public void leerArchivo(String nombreArchivo){
         contenido = "";
+        String slash = "/";
         String directorio = System.getProperty("user.dir");
-        String rutaFinal = directorio+"\\"+nombreArchivo;
+        
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            // includes: Windows 2000,  Windows 95, Windows 98, Windows NT, Windows Vista, Windows XP
+            slash = "\\";
+        }
+        
+        String rutaFinal = directorio+slash+nombreArchivo;
         String resultado = "";
         lineasArchivo = new Vector();
         

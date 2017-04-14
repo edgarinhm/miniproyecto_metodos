@@ -21,7 +21,7 @@ public class DashBoard {
         preparacion matriz_lista= new preparacion();
         matriz_lista.preparacion_matriz(archivo.getColum(), archivo.getMatrizRating());
         Prediccion predicion = new Prediccion();
-        predicion.generar(matriz_lista.getMatriz());
+        predicion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz());
         predicion.prueba();
         
         
