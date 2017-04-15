@@ -12,14 +12,25 @@ package sistemarecomendacion.modelo;
 public class preparacion {
     
     double [][] matriz;
+    double [][] promedios;
+    double [][] matriz01;
     
     public  double [][] getMatriz(){
         return matriz;
     }
     
+    public  double [][] getPromedios(){
+        return promedios;
+    }
+    
+    public  double [][] getMatriz01(){
+        return matriz01;
+    }
+    
     public void preparacion_matriz(int n, double m [][]){
         
-        matriz=m;
+        promedios=m;
+        matriz = new double [promedios.length][n];
         rellenado(n);
         normalizar_matriz();
         
@@ -29,40 +40,64 @@ public class preparacion {
     
    void rellenado ( int n){
         
-        double sumaColumna=0;
-        int cont=0;
+        
+        
         for (int i = 0 ; i<n; i++){
-            for (int j = 0 ; j<matriz.length; j++) {
-                sumaColumna += matriz[j][i];
+            double sumaColumna=0;
+            int cont=0;
+            for (int j = 0 ; j<promedios.length; j++) {
+                sumaColumna += promedios[j][i];
                 cont ++;
             }
+            
+            
             double promedioColumna= sumaColumna/cont;
             
-            for (int j = 0 ; j<matriz.length; j++) {
-                if (matriz [j][i]==0){
-                    matriz [j][i]=promedioColumna;
+            for (int j = 0 ; j<promedios.length; j++) {
+                if (promedios [j][i]==0){
+                    promedios [j][i]=promedioColumna;
+                    
+                    
                 }
+                
+                
             }
-    }
+            
+        }
+        
+        //promedios = matriz;
     }
     
 
     void normalizar_matriz (){
         
-        for (int i = 0 ; i<matriz.length; i++){
+        for (int i = 0 ; i<promedios.length; i++){
             double sumatoria = 0.0;
             double promedio = 0.0;
-            int m = matriz[i].length;
+            int m = promedios[i].length;
+            
             for (int j = 0; j<m; j++){
-                sumatoria += matriz [i][j];
+                sumatoria += promedios [i][j];
             }
             
             promedio = sumatoria/m;
             
             for (int j = 0; j<m; j++){
-                matriz[i][j] = matriz[i][j]-promedio;
+                matriz[i][j] = promedios[i][j]-promedio;
             }
         }
     }
+     
+    public void convertirMatriz01 (double [][] m){
+        for (int i = 0 ; i<m.length; i++){
             
+            for (int j = 0; j<m[i].length; j++){
+                if(m[i][j] != 0){
+                    m[i][j]= 1;
+                }
+            }      
+                       
+        }
+        matriz01 = m;
+    }
 }

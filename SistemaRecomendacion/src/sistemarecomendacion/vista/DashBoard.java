@@ -8,6 +8,7 @@ package sistemarecomendacion.vista;
 import sistemarecomendacion.modelo.Archivos;
 import sistemarecomendacion.modelo.Prediccion;
 import sistemarecomendacion.modelo.preparacion;
+import sistemarecomendacion.modelo.Recomendacion;
 
 /**
  *
@@ -19,13 +20,16 @@ public class DashBoard {
         Archivos archivo = new Archivos();
         archivo.leerArchivo("sparse_matrix.txt");
         preparacion matriz_lista= new preparacion();
-        matriz_lista.preparacion_matriz(archivo.getColum(), archivo.getMatrizRating());
-        Prediccion predicion = new Prediccion();
-        predicion.imprimir(matriz_lista.getPromedios(),"promedio");
-        predicion.imprimir(matriz_lista.getMatriz(),"normalizada");
-        predicion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz());
-        predicion.recomendacion();
-        
+        //matriz_lista.preparacion_matriz(archivo.getColum(), archivo.getMatrizRating());
+        //Prediccion predicion = new Prediccion();
+        //predicion.imprimir(matriz_lista.getPromedios(),"promedio");
+        //predicion.imprimir(matriz_lista.getMatriz(),"normalizada");
+        //predicion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz());
+        //predicion.calculaPrediccion();
+        Recomendacion recomendacion = new Recomendacion();
+        matriz_lista.convertirMatriz01(archivo.getMatrizRating());
+        recomendacion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz01());
+        recomendacion.calculoVecino();
        }
     
         //System.out.println(archivo.getContenido());
