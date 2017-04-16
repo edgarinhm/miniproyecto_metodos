@@ -224,11 +224,11 @@ public class Recomendacion {
                     pos1 = j + 1;
                 }
             }
-            System.out.println("primer "+mayor1);
-            System.out.println("primer "+mayor2);
+            //System.out.println("primer "+mayor1);
+            //System.out.println("primer "+mayor2);
 
             //sacar los dos vecinos mas similares por columna
-            for (int j = 0; j < numColum; j++) {
+            //for (int j = 0; j < numColum; j++) {
                 //mayor1Colum = vecinos.get(0, j);
                 //pos1Colum = 0;
 
@@ -236,19 +236,19 @@ public class Recomendacion {
                 //pos2Colum = 1;
                 for (int k = 0; k < numFilas - 1; k++) {
 
-                    if (vecinos.get(k , j)>mayor1 ) {
-                        mayor1 = vecinos.get(k , j);
+                    if (vecinos.get(k , i)>mayor1 ) {
+                        mayor1 = vecinos.get(k , i);
                         pos1 = k;
                     }
                     
-                    if(vecinos.get(k , j)>mayor2 ){
+                    if(vecinos.get(k , i)>mayor2 ){
 
-                        mayor2 = vecinos.get(k , j);
+                        mayor2 = vecinos.get(k , i);
                         pos2 = k ;
                     }
-                }
-            System.out.println("segunda "+mayor1);
-            System.out.println("segunda "+mayor2);
+                
+            //System.out.println("segunda "+mayor1);
+            //System.out.println("segunda "+mayor2);
             }
            
             
