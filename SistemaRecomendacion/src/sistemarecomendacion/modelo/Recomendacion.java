@@ -14,7 +14,7 @@ import java.util.Date;
  * @author edgarin
  */
 public class Recomendacion {
-    Matrix A,B,C,Z,O,I,R,S,Sroot,U,V,Vt,SUB,M,N,P,T,SQ,DEF,SOL,Rnorm, NPR, prediccion, CP, vecinos;
+    Matrix A,B,C,Z,O,I,R,S,Sroot,U,V,Vt,SUB,M,N,P,T,SQ,DEF,SOL,Rnorm, NPR, prediccion, CP, vecinos,vecindad;
     int dimensionK, filRnorm, colRnorm;
     Date start_time = new Date();
     
@@ -187,7 +187,80 @@ public class Recomendacion {
        
    }
    
-   public void crearVecindario (int k){
-       
+    public void crearVecindario() {
+
+        
+        
+        int numFilas = vecinos.getRowDimension();
+        int numColum = vecinos.getColumnDimension();
+        double mayor1;
+        double mayor2;
+        int pos1;
+        int pos2;
+        vecindad = new Matrix (numFilas, 2);
+        
+
+        /*double mayor1Colum;
+        double mayor2Colum;
+        int pos1Colum;
+        int pos2Colum;
+*/
+        //sacar los dos vecinos mas similares por fila
+        for (int i = 0; i < numFilas; i++) {
+
+            mayor1 = vecinos.get(i, 0);
+            pos1 = 0;
+
+            mayor2 = vecinos.get(i, 1);
+            pos2 = 1;
+
+            for (int j = 0; j < numColum - 1; j++) {
+
+                if (mayor1 < vecinos.get(i, j + 1)) {
+                    mayor2 = mayor1;
+                    pos2 = pos1;
+
+                    mayor1 = vecinos.get(i, j + 1);
+                    pos1 = j + 1;
+                }
+            }
+            System.out.println("primer "+mayor1);
+            System.out.println("primer "+mayor2);
+
+            //sacar los dos vecinos mas similares por columna
+            for (int j = 0; j < numColum; j++) {
+                //mayor1Colum = vecinos.get(0, j);
+                //pos1Colum = 0;
+
+                //mayor2Colum = vecinos.get(1, j);
+                //pos2Colum = 1;
+                for (int k = 0; k < numFilas - 1; k++) {
+
+                    if (vecinos.get(k , j)>mayor1 ) {
+                        mayor1 = vecinos.get(k , j);
+                        pos1 = k;
+                    }
+                    
+                    if(vecinos.get(k , j)>mayor2 ){
+
+                        mayor2 = vecinos.get(k , j);
+                        pos2 = k ;
+                    }
+                }
+            System.out.println("segunda "+mayor1);
+            System.out.println("segunda "+mayor2);
+            }
+           
+            
+            
+                    
+            vecindad.set(i, 0, pos1);
+            vecindad.set(i, 1, pos2);
+        }
+        
+        
+       System.out.print("Esta es la matriz vecindad");
+       vecindad.print(6, 3);
+        
    }
 }
