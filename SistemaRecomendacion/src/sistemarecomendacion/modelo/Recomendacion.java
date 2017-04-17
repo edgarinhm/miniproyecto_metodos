@@ -237,11 +237,14 @@ public class Recomendacion {
                 for (int k = 0; k < numFilas - 1; k++) {
 
                     if (vecinos.get(k , i)>mayor1 ) {
+                        
+                        mayor2 = mayor1;
+                        pos2 = pos1;
                         mayor1 = vecinos.get(k , i);
                         pos1 = k;
                     }
                     
-                    if(vecinos.get(k , i)>mayor2 ){
+                    else if(vecinos.get(k , i)>mayor2 ){
 
                         mayor2 = vecinos.get(k , i);
                         pos2 = k ;

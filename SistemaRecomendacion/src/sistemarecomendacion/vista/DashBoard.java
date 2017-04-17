@@ -30,6 +30,7 @@ public class DashBoard {
         matriz_lista.convertirMatriz01(archivo.getMatrizRating());
         recomendacion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz01());
         recomendacion.calculoVecino();
+        recomendacion.crearVecindario();
        }
     
         //System.out.println(archivo.getContenido());
