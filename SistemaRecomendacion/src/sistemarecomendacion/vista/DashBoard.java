@@ -32,6 +32,7 @@ public class DashBoard {
         recomendacion.calculoVecino();
         recomendacion.crearVecindario();
         recomendacion.predicciones();
+        recomendacion.top_productos();
        }
     
         //System.out.println(archivo.getContenido());

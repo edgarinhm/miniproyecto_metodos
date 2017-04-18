@@ -14,7 +14,7 @@ import java.util.Date;
  * @author edgarin
  */
 public class Recomendacion {
-    Matrix A,B,C,Z,O,I,R,S,Sroot,U,V,Vt,SUB,M,N,P,T,SQ,DEF,SOL,Rnorm, NPR, prediccion, CP, vecinos,vecindad;
+    Matrix A,B,C,Z,O,I,R,S,Sroot,U,V,Vt,SUB,M,N,P,T,SQ,DEF,SOL,Rnorm, NPR, prediccion, CP, vecinos,vecindad, productos;
     int dimensionK, filRnorm, colRnorm;
     Date start_time = new Date();
     
@@ -268,6 +268,8 @@ public class Recomendacion {
    }
     
     public void predicciones (){
+        System.out.print("Esto es la matriz original");
+        R.print(6, 3);
         prediccion = new Matrix(R.getRowDimension(), R.getColumnDimension());
         for (int i = 0; i < R.getRowDimension(); i++){
             for (int j = 0; j < R.getColumnDimension(); j++){
@@ -302,5 +304,38 @@ public class Recomendacion {
         
         System.out.print("Esto es la matriz de predicciones");
         prediccion.print(6, 3);
+    }
+    
+    public void top_productos(){
+        int filas = R.getRowDimension();
+        int columnas = R.getColumnDimension();
+        productos = new Matrix (filas, columnas);
+        
+        for (int i = 0; i< filas; i++){
+            for (int j = 0; j < columnas; j++){
+                productos.set(i, j, j);
+            }
+        }
+        
+        for (int i=0; i<filas; i++){
+            for (int j=0; j<columnas; j++){
+                for (int k= j+1; k<columnas; k++){
+                    if(prediccion.get(i,j) < prediccion.get(i,k)){
+                        double auxiliar_prediccion = prediccion.get(i, j);
+                        double auxiliar_productos = productos.get(i,j);
+                        
+                        prediccion.set(i, j, prediccion.get(i,k));
+                        productos.set(i, j, productos.get(i,k));
+                        
+                        prediccion.set(i, k, auxiliar_prediccion);
+                        productos.set(i, k, auxiliar_productos);
+                    }
+                }
+            }
+        }
+        System.out.print("Esta es la matriz prediccion ordenada");
+        prediccion.print(6, 3);
+        System.out.print("Esta es la matriz del top de productos");
+        productos.print(6, 3);
     }
 }
