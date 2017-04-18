@@ -29,38 +29,34 @@ public class preparacion {
     
     public void preparacion_matriz(int n, double m [][]){
         
-        promedios=m;
-        matriz = new double [promedios.length][n];
-        rellenado(n);
+        promedios = new double[m.length][m[0].length];
+        matriz = new double[m.length][m[0].length];
+        rellenado(n, m);
         normalizar_matriz();
         
         
     }
     
     
-   void rellenado ( int n){
-        
-        
+   void rellenado ( int n, double[][] m ){
         
         for (int i = 0 ; i<n; i++){
             double sumaColumna=0;
             int cont=0;
-            for (int j = 0 ; j<promedios.length; j++) {
-                sumaColumna += promedios[j][i];
+            for (int j = 0 ; j<m.length; j++) {
+                sumaColumna += m[j][i];
                 cont ++;
             }
             
             
             double promedioColumna= sumaColumna/cont;
             
-            for (int j = 0 ; j<promedios.length; j++) {
-                if (promedios [j][i]==0){
-                    promedios [j][i]=promedioColumna;
-                    
-                    
+            for (int j = 0 ; j<m.length; j++) {
+                if ( m[j][i]==0){
+                    promedios[j][i]=promedioColumna;
+                }else{
+                    promedios[j][i] = m[j][i];
                 }
-                
-                
             }
             
         }
@@ -89,15 +85,19 @@ public class preparacion {
     }
      
     public void convertirMatriz01 (double [][] m){
+        
+        matriz01 = new double[m.length][m[0].length];
+                
         for (int i = 0 ; i<m.length; i++){
             
             for (int j = 0; j<m[i].length; j++){
                 if(m[i][j] != 0){
-                    m[i][j]= 1;
+                    matriz01[i][j]= 1;
+                }else{
+                    matriz01[i][j]= m[i][j];
                 }
             }      
                        
-        }
-        matriz01 = m;
+        }        
     }
 }
