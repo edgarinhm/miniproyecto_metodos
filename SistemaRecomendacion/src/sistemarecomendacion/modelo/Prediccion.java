@@ -166,7 +166,7 @@ public class Prediccion {
             double Cpromedio = 0.0;
             int m = colRnorm;
                  for (int j = 0; j<m; j++){
-                     sumatoria += Rnorm.get(i, j);
+                     sumatoria += R.get(i, j);
                  }
 
                  Cpromedio = sumatoria/m;
