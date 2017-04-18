@@ -266,4 +266,41 @@ public class Recomendacion {
        vecindad.print(6, 3);
         
    }
+    
+    public void predicciones (){
+        prediccion = new Matrix(R.getRowDimension(), R.getColumnDimension());
+        for (int i = 0; i < R.getRowDimension(); i++){
+            for (int j = 0; j < R.getColumnDimension(); j++){
+                if(R.get(i, j) == 0){
+                    int vecino1 = (int) vecindad.get(i, 0);
+                    int vecino2 = (int) vecindad.get(i, 1);
+                    double similitud1, similitud2;
+                    
+                    if(vecino1 > i){
+                        similitud1 = vecinos.get(i, vecino1);
+                    }else{
+                        similitud1 = vecinos.get(vecino1, i);
+                    }
+                    
+                    if(vecino2 > i){
+                        similitud2 = vecinos.get(i, vecino2);
+                    }else{
+                        similitud2 = vecinos.get(vecino2, i);
+                    }
+                    
+                    double cal_vecino1 = R.get(vecino1, j);
+                    double cal_vecino2 = R.get(vecino2, j);
+                    
+                    double valor = ((similitud1 * cal_vecino1) + (similitud2 * cal_vecino2))/ (similitud1 + similitud2);
+                    prediccion.set(i, j, valor);
+                    
+                }else{
+                    prediccion.set(i, j, 0.0);
+                }
+            }
+        }
+        
+        System.out.print("Esto es la matriz de predicciones");
+        prediccion.print(6, 3);
+    }
 }

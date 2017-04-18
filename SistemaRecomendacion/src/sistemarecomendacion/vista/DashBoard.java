@@ -31,6 +31,7 @@ public class DashBoard {
         recomendacion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz01());
         recomendacion.calculoVecino();
         recomendacion.crearVecindario();
+        recomendacion.predicciones();
        }
     
         //System.out.println(archivo.getContenido());
