@@ -33,6 +33,7 @@ public class DashBoard {
         recomendacion.crearVecindario();
         recomendacion.predicciones();
         recomendacion.top_productos();
+        recomendacion.reducir_matriz();
        }
     
         //System.out.println(archivo.getContenido());

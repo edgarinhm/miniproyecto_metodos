@@ -8,7 +8,7 @@ package sistemarecomendacion.modelo;
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import java.util.Date;
-
+import java.util.Scanner;
 /**
  *
  * @author edgarin
@@ -336,6 +336,16 @@ public class Recomendacion {
         System.out.print("Esta es la matriz prediccion ordenada");
         prediccion.print(6, 3);
         System.out.print("Esta es la matriz del top de productos");
+        productos.print(6, 3);
+    }
+    
+    public void reducir_matriz(){
+        Scanner n = new Scanner(System.in);
+        System.out.print("Ingrese la cantidad de productos a recomendar");
+        int top = n.nextInt();
+        
+        productos = productos.getMatrix(0, R.getRowDimension()-1, 0, top-1);
+        System.out.print("Matriz de productos recomendados");
         productos.print(6, 3);
     }
 }
