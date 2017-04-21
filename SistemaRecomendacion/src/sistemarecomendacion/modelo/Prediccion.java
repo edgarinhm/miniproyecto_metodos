@@ -8,6 +8,7 @@ package sistemarecomendacion.modelo;
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  *
@@ -99,7 +100,7 @@ public class Prediccion {
             C = U.times(Sroot);
             System.out.println("Sk . Vk'");
             P.print(6, 3);
-            C = U.times(Sroot);
+            //C = U.times(Sroot);
             System.out.println("Uk . raizSk");
             C.print(6, 3);
          
@@ -189,13 +190,26 @@ public class Prediccion {
         System.out.print("esta es nuestra matriz de entrada");
         R.print(6, 3);
         
-        System.out.print(dimensionK);
+        System.out.println("la dimensionK es:"+dimensionK);
     }
     
     public void imprimir (double [][] k, String nomMatriz){
         Matrix m = new Matrix (k);
         System.out.print("Matriz " +nomMatriz);
         m.print(6, 3);
+    }
+    
+    public void prediccion_cliente_producto(){
+        Scanner cl = new Scanner(System.in);
+        System.out.print("Ingrese el #Cliente[1-"+prediccion.getRowDimension()+"]:");
+        int fil = cl.nextInt();
+        
+        Scanner pr = new Scanner(System.in);
+        System.out.print("Ingrese el #Producto[1-"+prediccion.getColumnDimension()+"]:");
+        int col = pr.nextInt();
+        
+        double probable = prediccion.get(fil-1, col-1);
+        System.out.println("La predicción es: "+probable);
     }
    
 }

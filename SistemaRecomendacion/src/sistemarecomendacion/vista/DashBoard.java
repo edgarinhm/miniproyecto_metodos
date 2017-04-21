@@ -20,12 +20,13 @@ public class DashBoard {
         Archivos archivo = new Archivos();
         archivo.leerArchivo("sparse_matrix.txt");
         preparacion matriz_lista= new preparacion();
-        //matriz_lista.preparacion_matriz(archivo.getColum(), archivo.getMatrizRating());
-        //Prediccion predicion = new Prediccion();
-        //predicion.imprimir(matriz_lista.getPromedios(),"promedio");
-        //predicion.imprimir(matriz_lista.getMatriz(),"normalizada");
-        //predicion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz());
-        //predicion.calculaPrediccion();
+        matriz_lista.preparacion_matriz(archivo.getColum(), archivo.getMatrizRating());
+        Prediccion predicion = new Prediccion();
+        predicion.imprimir(matriz_lista.getPromedios(),"promedio");
+        predicion.imprimir(matriz_lista.getMatriz(),"normalizada");
+        predicion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz());
+        predicion.calculaPrediccion();
+        
         Recomendacion recomendacion = new Recomendacion();
         matriz_lista.convertirMatriz01(archivo.getMatrizRating());
         recomendacion.generar(archivo.getMatrizRating(), matriz_lista.getMatriz01());
@@ -33,6 +34,8 @@ public class DashBoard {
         recomendacion.crearVecindario();
         recomendacion.predicciones();
         recomendacion.top_productos();
+        
+        predicion.prediccion_cliente_producto();
         recomendacion.reducir_matriz();
        }
     

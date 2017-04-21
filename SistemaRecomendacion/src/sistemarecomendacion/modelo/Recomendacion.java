@@ -97,7 +97,7 @@ public class Recomendacion {
             //SVD.getU().times(SVD.getS().times(SVD.getV().transpose()));
                     
             //P = Sroot.times(Vt);
-            C = U.times(Sroot);
+            //C = U.times(Sroot);
             ///System.out.println("Sk . Vk'");
             //P.print(6, 3);
             C = U.times(Sroot);
@@ -341,7 +341,7 @@ public class Recomendacion {
     
     public void reducir_matriz(){
         Scanner n = new Scanner(System.in);
-        System.out.print("Ingrese la cantidad de productos a recomendar");
+        System.out.print("Ingrese la cantidad de productos a recomendar[1-"+productos.getColumnDimension()+"]:");
         int top = n.nextInt();
         
         productos = productos.getMatrix(0, R.getRowDimension()-1, 0, top-1);
